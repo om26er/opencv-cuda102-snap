@@ -1,0 +1,31 @@
+name: opencv-cuda102
+base: core20
+version: '0.2'
+summary: OpenCV built with CUDA 10.2 Support
+description: |
+  OpenCV built with CUDA 10.2 Support
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: arm64
+    run-on: arm64
+
+parts:
+  opencv:
+    source: ./opencv-4.5.0-aarch64.tar.gz
+    source-type: tar
+    plugin: dump
+    stage-packages:
+      - libgomp1
+  deps:
+    plugin: python
+    python-packages:
+      - numpy
+
+slots:
+  opencv-cuda102:
+    interface: content
+    content: runtime
+    read:
+      - $SNAP
